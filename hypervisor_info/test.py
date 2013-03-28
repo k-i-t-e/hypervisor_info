@@ -14,6 +14,9 @@ if conn == None:
 domains = conn.listDomainsID()
 
 print domains
+dom = conn.lookupByID(domains[0])
+dom0_info =  dom.info()
+print dom0_info
 
 #try:
 #    dom0 = conn.lookupByName("Domain-0")
