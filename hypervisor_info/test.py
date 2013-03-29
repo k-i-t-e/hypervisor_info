@@ -28,14 +28,19 @@ print "hypervisor type = "+hypervisor_type
 
 
 info = conn.getInfo()
-
+print "Info:"
 print info
 
 print "cell free memory = "
 print conn.getCellsFreeMemory(0, 1)
 
+print "CPU Stats:"
 print conn.getCPUStats(1, 0)
 
+# -1 for all cells statistic
+mem_stat = conn.getMemoryStats(-1, 0)
+print "Memory stats:"
+print mem_stat
 #try:
 #    dom0 = conn.lookupByName("Domain-0")
 #except:
