@@ -29,6 +29,9 @@ print "hypervisor type = "+hypervisor_type
 info = conn.getInfo()
 
 print info
+
+print "cell free memory = "+conn.getCellsFreeMemory(1, 1)
+
 #try:
 #    dom0 = conn.lookupByName("Domain-0")
 #except:
