@@ -5,6 +5,7 @@ Created on Mar 28, 2013
 '''
 import libvirt
 import sys
+import libvirtmod
 
 conn = libvirt.openReadOnly("qemu:///system")
 #conn = libvirt.openReadOnly("qemu://195.208.117.178/system")
@@ -43,11 +44,13 @@ print "Domain IDs"
 domains = conn.listDomainsID()
 print domains
 
-print "Info for Domain 0"
+print "Info for Domain number 0"
 dom = conn.lookupByID(domains[0])
+print dom.name()
 print dom.info()
+print dom.OSType()
 
-print "Memory stats for Dom0"
+print "Memory stats for Dom number 0"
 print dom.memoryStats()
 
 print "Max memory:"
@@ -59,6 +62,24 @@ print dom.maxVcpus()
 print "Memory Parameters"
 print dom.memoryParameters(0)
 
+print "Scheduler parameters" 
+print dom.schedulerParameters()
+
+print "Scheduler type:"
+print dom.schedulerType()
+
+print "Job info"
+print dom.jobInfo()
+
+print "Domain state:"
+print dom.state(0)
+
+print "VCPUS information:"
+print dom.vcpus()
+
+#1 - secure or 4 - update CPU requirements
+print "dom XML description"
+print dom.XMLDesc(1)
 #try:
 #    dom0 = conn.lookupByName("Domain-0")
 #except:
