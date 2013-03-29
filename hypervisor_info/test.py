@@ -18,6 +18,17 @@ dom = conn.lookupByID(domains[0])
 dom0_info =  dom.info()
 print dom0_info
 
+cap = conn.getCapabilities()
+
+print "Host capabilities:\n"+cap
+
+hypervisor_type = conn.getType()
+print "hypervisor type = "+hypervisor_type
+
+
+info = conn.getInfo()
+
+print info
 #try:
 #    dom0 = conn.lookupByName("Domain-0")
 #except:
