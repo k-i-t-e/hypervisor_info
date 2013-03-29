@@ -12,13 +12,6 @@ if conn == None:
     print 'Failed to open connection to hypervisor'
     sys.exit(1)
 
-#this gets list of domains IDs
-domains = conn.listDomainsID()
-print domains
-
-dom = conn.lookupByID(domains[0])
-print dom.info()
-
 # This gets a lot of xml
 cap = conn.getCapabilities()
 print "Host capabilities:\n"+cap
@@ -44,6 +37,28 @@ print mem_stat
 
 print "Sys Info:"
 print conn.getSysinfo(0)
+
+#this gets list of domains IDs
+print "Domain IDs"
+domains = conn.listDomainsID()
+print domains
+
+print "Info for Domain 0"
+dom = conn.lookupByID(domains[0])
+print dom.info()
+
+print "Memory stats for Dom0"
+print dom.memoryStats()
+
+print "Max memory:"
+print dom.maxMemory()
+
+print "Max VCPUS"
+print dom.maxVcpus()
+
+print "Memory Parameters"
+print dom.memoryParameters(0)
+
 #try:
 #    dom0 = conn.lookupByName("Domain-0")
 #except:
