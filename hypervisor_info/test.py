@@ -41,6 +41,9 @@ print conn.getCPUStats(1, 0)
 mem_stat = conn.getMemoryStats(-1, 0)
 print "Memory stats:"
 print mem_stat
+
+print "Sys Info:"
+print conn.getSysinfo(0)
 #try:
 #    dom0 = conn.lookupByName("Domain-0")
 #except:
