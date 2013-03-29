@@ -34,7 +34,7 @@ print info
 print "cell free memory = "
 print conn.getCellsFreeMemory(0, 1)
 
-print conn.getCPUStats(1, None)
+print conn.getCPUStats(1, 1)
 
 #try:
 #    dom0 = conn.lookupByName("Domain-0")
