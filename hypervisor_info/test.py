@@ -7,7 +7,8 @@ import libvirt
 import sys
 import libvirtmod
 
-conn = libvirt.openReadOnly("qemu:///system")
+#conn = libvirt.openReadOnly("qemu:///system")
+conn = libvirt.open("qemu:///system")
 #conn = libvirt.openReadOnly("qemu://195.208.117.178/system")
 if conn == None:
     print 'Failed to open connection to hypervisor'
