@@ -11,15 +11,18 @@ if conn == None:
     print 'Failed to open connection to hypervisor'
     sys.exit(1)
 
+#this gets list of domains IDs
 domains = conn.listDomainsID()
-
 print domains
+
 dom = conn.lookupByID(domains[0])
-dom0_info =  dom.info()
-print dom0_info
+print dom.info()
 
+print "Trying to print dom0"
+print dom
+
+# This gets a lot of xml
 cap = conn.getCapabilities()
-
 print "Host capabilities:\n"+cap
 
 hypervisor_type = conn.getType()
@@ -30,7 +33,7 @@ info = conn.getInfo()
 
 print info
 
-print "cell free memory = "+conn.getCellsFreeMemory(1, 1)
+print "cell free memory = "+conn.getCellsFreeMemory(0, 1)
 
 #try:
 #    dom0 = conn.lookupByName("Domain-0")
