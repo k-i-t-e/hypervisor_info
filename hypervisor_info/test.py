@@ -7,6 +7,7 @@ import libvirt
 import sys
 
 conn = libvirt.openReadOnly("qemu:///system")
+#conn = libvirt.openReadOnly("qemu://195.208.117.178/system")
 if conn == None:
     print 'Failed to open connection to hypervisor'
     sys.exit(1)
@@ -17,9 +18,6 @@ print domains
 
 dom = conn.lookupByID(domains[0])
 print dom.info()
-
-print "Trying to print dom0"
-print dom
 
 # This gets a lot of xml
 cap = conn.getCapabilities()
@@ -33,7 +31,10 @@ info = conn.getInfo()
 
 print info
 
-print "cell free memory = "+conn.getCellsFreeMemory(0, 1)
+print "cell free memory = "
+print conn.getCellsFreeMemory(0, 1)
+
+print conn.getCPUStats(1, None)
 
 #try:
 #    dom0 = conn.lookupByName("Domain-0")
