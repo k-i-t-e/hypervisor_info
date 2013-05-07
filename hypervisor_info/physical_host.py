@@ -3,8 +3,10 @@ Created on Mar 13, 2013
 
 @author: kite
 '''
+import libvirt
 class PhysicalHost:
-    def __init__(self, host_name):
+    def __init__(self, host_name, URI):
+        # Model fields
         self.host_name = host_name
         self.cpu_cap = 100
         self.mem_cap = 100
@@ -14,7 +16,16 @@ class PhysicalHost:
         self.mem_available = self.mem_cap
 #        self.hdd_available = self.hdd_cap
         self.assigned_vms = []
-    
+        
+        # Real host fields
+        self.conn = libvirt.open(URI)
+        self.cpuTimeStart = []
+        self.cpuTimeEnd = []
+        self.stats = []
+        self.memory = []
+        self.domains = []
+        self.totalMemory = 0
+        
     def can_run_vm(self, vm):
         if self.cpu_available - vm.cpu_usage >= 0 and self.mem_available - vm.mem_usage >= 0: #and self.hdd_available - vm.hdd_usage >= 0
             return True
