@@ -31,7 +31,7 @@ class HypervisorInfo:
             domainsIDs_ = conn.listDomainsID()
             domains = []
             for domID in domainsIDs_:
-                domains.append(self.conn.lookupByID(domID))
+                domains.append(conn.lookupByID(domID))
             host_domains.append(domains)
         
         for domains in host_domains:    #get cpuTime for all the domains on each host
