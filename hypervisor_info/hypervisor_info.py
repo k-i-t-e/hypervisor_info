@@ -66,7 +66,7 @@ class HypervisorInfo:
             stats = []
             for j in xrange(len(host_cpuTimeStart[i])):
                 time_ = (host_cpuTimeEnd[i][j] - host_cpuTimeStart[i][j])*(10**(-9))
-                memory_ = float(host_memory[i])/host_totalMemory[i]
+                memory_ = float(host_memory[i][j])/host_totalMemory[i]
                 stats.append( dict(id=host_domains[i][j].ID(), time=time_,
                              load_cpu = (time_/period)*100, memory = float(host_memory[i][j])/1024, 
                              load_mem = memory_*100) )
@@ -85,7 +85,8 @@ class HypervisorInfo:
                 vm.mem_usage = host_stats[i][j]['load_mem']
                 self.hosts[i].run_vm(vm)
             
-        return stats
+        return host_stats
     
     def showVMs(self):
-        self.host.show_host_props()
+        for host in self.hosts:
+            host.show_host_props()

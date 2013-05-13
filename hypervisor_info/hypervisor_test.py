@@ -5,9 +5,12 @@ Created on Apr 12, 2013
 '''
 
 import hypervisor_info
+import MySQLdb as mdb
 from algorithm import ScheduldingAlgorithm
 
-URIs = ["qemu:///system", "qemu+ssh://root@195.208.117.184/system"]
+#URIs = ["qemu:///system", "qemu+ssh://root@195.208.117.184/system"]
+#URIs = ["qemu:///system", "qemu+ssh://npc10.stu.neva.ru/system"] #works!
+URIs = ["qemu+ssh://npc11.stu.neva.ru/system", "qemu+ssh://npc10.stu.neva.ru/system"] #works
 hostnames = ['npc11', 'npc10']
 
 #npc11 = hypervisor_info.HypervisorInfo("qemu:///system", 'npc11')
@@ -15,7 +18,22 @@ hostnames = ['npc11', 'npc10']
 
 cloud = hypervisor_info.HypervisorInfo(URIs, hostnames)
 
-print cloud.getDomainStats(10)
+print cloud.getDomainStats(60) 
+cloud.showVMs()
+
+try:
+    con = mdb.connect('localhost', 'root', 'cl0udAdmin', 'nova')
+except mdb.Error, e:
+    print "Error in connecting to database"
+else:
+    try:
+        cur = con.cursor()
+        cur.execute("select hypervisor_hostname from compute_nodes")
+        hosts = cur.fetchall()
+        for host in hosts:
+            print host[0]
+    except:
+        print "Error in executing query"
 
 #print npc11.getDomainStats(10)
 #npc11.showVMs()
