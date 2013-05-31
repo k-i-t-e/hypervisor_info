@@ -18,8 +18,8 @@ hostnames = ['npc11', 'npc10']
 
 cloud = hypervisor_info.HypervisorInfo(URIs, hostnames)
 
-print cloud.getDomainStats(60) 
-cloud.showVMs()
+print cloud.get_domain_stats(60) 
+cloud.show()
 
 try:
     con = mdb.connect('localhost', 'root', 'cl0udAdmin', 'nova')

@@ -108,7 +108,7 @@ print "Now let's try to guess how much CPU time does the domain consume:"
 
 
 
-def getDomainStats(period, conn_):
+def get_domain_stats(period, conn_):
     cpuTimeStart = []
     cpuTimeEnd = []
     stats = []
@@ -144,4 +144,4 @@ def getDomainStats(period, conn_):
     return stats
 
 
-print getDomainStats(10, conn)
+print get_domain_stats(10, conn)

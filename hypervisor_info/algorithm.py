@@ -118,62 +118,62 @@ class ScheduldingAlgorithm:
         return cost
     
     
-    def simulated_annealing(self):
-        k = 1.3806488 * (10**(-23))
-        print 'Running Simulated Annealing algoritm'
-        temp = 1000
-        no_changes_iterations = 0
-        old_delta = 0
-        result_iter = 0
-        for i in xrange(100):
-            result_iter = i
-            temp_hosts = deepcopy(self.hosts)
-            seed()
-            host1 = choice(temp_hosts)
-            seed()
-            host2 = choice(temp_hosts)
-            seed()
-            try:
-                vm = choice(host1.assigned_vms)
-            except IndexError:
-                continue
-                
-            host1.migrate(vm, host2)
-            delta = self.cost_func(self.hosts) - self.cost_func(temp_hosts)
-            if delta>=0:
-                self.hosts = temp_hosts
-                    #no_changes_iterations = 0
-            else: 
-                if k*temp>0:
-                    r = random.random()
-                    # some debug information
-                    print '///Debug stuff///'
-                    print i
-                    print delta
-                    print math.exp(delta/temp)
-                    #print math.exp(-(delta/temp)) 
-                    print temp
-                    print r
-                    print '/////////////////'
-                    if math.exp(delta/temp) > r:
-                        self.hosts = temp_hosts
-                    else:
-                        no_changes_iterations = 0
-                        
-            temp *= 0.7
-            if delta == old_delta:
-                no_changes_iterations += 1
-                #break #optionally
-            else:
-                no_changes_iterations = 0 
-            if no_changes_iterations>2:
-                break
-            old_delta = delta
-            self.show_hosts()
-        return result_iter   
+#    def simulated_annealing(self):
+#        k = 1.3806488 * (10**(-23))
+#        print 'Running Simulated Annealing algoritm'
+#        temp = 1000
+#        no_changes_iterations = 0
+#        old_delta = 0
+#        result_iter = 0
+#        for i in xrange(100):
+#            result_iter = i
+#            temp_hosts = deepcopy(self.hosts)
+#            seed()
+#            host1 = choice(temp_hosts)
+#            seed()
+#            host2 = choice(temp_hosts)
+#            seed()
+#            try:
+#                vm = choice(host1.assigned_vms)
+#            except IndexError:
+#                continue
+#                
+#            host1.migrate(vm, host2)
+#            delta = self.cost_func(self.hosts) - self.cost_func(temp_hosts)
+#            if delta>=0:
+#                self.hosts = temp_hosts
+#                    #no_changes_iterations = 0
+#            else: 
+#                if k*temp>0:
+#                    r = random.random()
+#                    # some debug information
+#                    print '///Debug stuff///'
+#                    print i
+#                    print delta
+#                    print math.exp(delta/temp)
+#                    #print math.exp(-(delta/temp)) 
+#                    print temp
+#                    print r
+#                    print '/////////////////'
+#                    if math.exp(delta/temp) > r:
+#                        self.hosts = temp_hosts
+#                    else:
+#                        no_changes_iterations = 0
+#                        
+#            temp *= 0.7
+#            if delta == old_delta:
+#                no_changes_iterations += 1
+#                #break #optionally
+#            else:
+#                no_changes_iterations = 0 
+#            if no_changes_iterations>2:
+#                break
+#            old_delta = delta
+#            self.show_hosts()
+#        return result_iter   
+#    
     
-    
-    def simulated_annealing_abstract(self, cost_function):
+    def simulated_annealing(self, cost_function):
         k = 1.3806488 * (10**(-23))
         print 'Running Simulated Annealing algoritm'
         temp = 1000

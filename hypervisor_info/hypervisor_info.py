@@ -12,14 +12,14 @@ from physical_host import PhysicalHost
 
 class HypervisorInfo:
     def __init__(self, URIs, hostnames):
-        self.conns = []
+        self.connections = []
         self.hosts = []
         for i in xrange(len(URIs)):
-            self.conns.append(libvirt.open(URIs[i]))
+            self.connections.append(libvirt.open(URIs[i]))
             self.hosts.append(PhysicalHost(hostnames[i]))
         
         
-    def getDomainStats(self, period):
+    def get_domain_stats(self, period):
         host_cpuTimeStart = []
         host_cpuTimeEnd = []
         host_totalMemory = []
@@ -27,7 +27,7 @@ class HypervisorInfo:
         host_memory = []
         host_domains = []
         
-        for conn in self.conns:
+        for conn in self.connections:
             domainsIDs_ = conn.listDomainsID()
             domains = []
             for domID in domainsIDs_:
@@ -50,7 +50,7 @@ class HypervisorInfo:
                 cpuTimeEnd.append(stat['cpu_time'])
             host_cpuTimeEnd.append(cpuTimeEnd)
         
-        for conn in self.conns:     #get totalMemeory amount for each hosts
+        for conn in self.connections:     #get totalMemeory amount for each hosts
             host_totalMemory.append(conn.getMemoryStats(-1, 0)['total'] - conn.getMemoryStats(-1, 0)['buffers']\
             - conn.getMemoryStats(-1, 0)['cached'])
         
@@ -87,6 +87,6 @@ class HypervisorInfo:
             
         return host_stats
     
-    def showVMs(self):
+    def show(self):
         for host in self.hosts:
             host.show_host_props()
